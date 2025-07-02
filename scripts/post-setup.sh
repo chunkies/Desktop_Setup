@@ -26,14 +26,12 @@ snap_packages=(
 echo ">>> Updating package index..."
 sudo apt update
 
-
 echo ">>> Installing NeoVim..."
 cd ~/Downloads
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 sudo rm nvim-linux-x86_64.tar.gz
-
 
 echo ">>> Installing required APT packages..."
 for package in "${apt_packages[@]}"; do 
