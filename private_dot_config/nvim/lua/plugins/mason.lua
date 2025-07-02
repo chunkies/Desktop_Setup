@@ -8,7 +8,7 @@ return {
     config = function()
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "ts_ls" }, -- pick your servers
+        ensure_installed = { "lua_ls" }, -- pick your servers
       })
 
       local lspconfig = require("lspconfig")
