@@ -2,7 +2,6 @@
 set -e
 
 apt_packages=(
-  kitty
   fzf
   ripgrep
   fd-find
@@ -15,6 +14,7 @@ apt_packages=(
   wget
   unzip
   build-essential
+  tmux
 )
 
 snap_packages=(
