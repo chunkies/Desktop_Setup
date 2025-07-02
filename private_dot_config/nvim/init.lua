@@ -1,0 +1,5 @@
+require("core.keymaps")
+require("core.diagnositcs")
+require("core.options")
+require("core.auto-commands")
+require("config.lazy")

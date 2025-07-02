@@ -1,0 +1,79 @@
+#!/bin/bash
+set -e
+
+apt_packages=(
+  neovim
+  kitty
+  fzf
+  ripgrep
+  fd-find
+  python3
+  nodejs
+  cargo
+  zsh
+  git
+  curl
+  wget
+  unzip
+  build-essential
+)
+
+snap_packages=(
+  spotify
+  discord
+)
+
+
+echo ">>> Updating package index..."
+sudo apt update
+
+echo ">>> Installing required APT packages..."
+for package in "${apt_packages[@]}"; do 
+    sudo apt install $package
+done
+
+echo ">>> Installing snap packages"
+for pkg in "${snap_packages[@]}"; do
+  if ! snap list | grep -q "^$pkg "; then
+    echo ">>> Installing $pkg via snap..."
+    sudo snap install "$pkg"
+  else
+    echo "✔ $pkg is already installed via snap"
+  fi
+done
+
+# --- Kitty config ---
+KITTY_CONF="$HOME/.config/kitty"
+if [ ! -d "$KITTY_CONF" ]; then
+    echo ">>> Creating Kitty config..."
+    mkdir -p "$KITTY_CONF"
+    cp /usr/share/doc/kitty/examples/kitty.conf "$KITTY_CONF/" || true
+fi
+
+# --- Install Oh My Zsh if missing ---
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo ">>> Installing Oh My Zsh..."
+    RUNZSH=no CHSH=no sh -c \
+      "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+    echo "✔ Oh My Zsh already installed"
+fi
+
+# --- Set Zsh as default shell if not already ---
+if [ "$SHELL" != "$(which zsh)" ]; then
+    echo ">>> Setting Zsh as default shell..."
+    chsh -s "$(which zsh)"
+fi
+
+# --- Install Nerd Font for icons (used in Trouble, NvimTree, etc.) ---
+echo ">>> Installing Nerd Font (FiraCode)..."
+FONT_DIR="$HOME/.local/share/fonts"
+mkdir -p "$FONT_DIR"
+cd "$FONT_DIR"
+wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip -O FiraCode.zip
+unzip -o FiraCode.zip
+fc-cache -fv
+
+# --- Final Message ---
+echo "✔ All done!"
+
