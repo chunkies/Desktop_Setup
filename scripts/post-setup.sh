@@ -79,6 +79,9 @@ cd "$FONT_DIR"
 wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip -O FiraCode.zip
 unzip -o FiraCode.zip
 fc-cache -fv
+PROFILE_ID=$(gsettings get org.gnome.Terminal.ProfilesList list | grep -o "'[^']*'" | head -n1 | tr -d "'")
+gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/" use-system-font false
+gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/" font 'FiraCode Nerd Font Mono 12'
 
 # --- Final Message ---
 echo "✔ All done!"
