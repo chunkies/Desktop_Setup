@@ -2,7 +2,6 @@
 set -e
 
 apt_packages=(
-  neovim
   kitty
   fzf
   ripgrep
@@ -27,16 +26,25 @@ snap_packages=(
 echo ">>> Updating package index..."
 sudo apt update
 
+
+echo ">>> Installing NeoVim..."
+cd ~/Downloads
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+sudo rm -rf /opt/nvim
+sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+sudo rm nvim-linux-x86_64.tar.gz
+
+
 echo ">>> Installing required APT packages..."
 for package in "${apt_packages[@]}"; do 
-    sudo apt install $package
+    sudo apt install -y $package
 done
 
 echo ">>> Installing snap packages"
 for pkg in "${snap_packages[@]}"; do
   if ! snap list | grep -q "^$pkg "; then
     echo ">>> Installing $pkg via snap..."
-    sudo snap install "$pkg"
+    sudo snap install "$pkg" --classic --yes
   else
     echo "✔ $pkg is already installed via snap"
   fi
