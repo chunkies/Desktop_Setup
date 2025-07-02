@@ -5,14 +5,13 @@ return {
     config = function()
       require("toggleterm").setup {
         size = 20,
-        open_mapping = [[<c-/>]],
+        open_mapping = '<leader>t',
         hide_numbers = true,
         direction = 'float',
         float_opts = {
           border = 'curved',
         },
         start_in_insert = true,
-        shell = "tmux"
       }
 
       -- custom terminals
@@ -23,7 +22,7 @@ return {
         lazygit:toggle()
       end
 
-      vim.api.nvim_set_keymap("n", [[<c-l>]], "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", '<leader>g', "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
     end
   }
 }

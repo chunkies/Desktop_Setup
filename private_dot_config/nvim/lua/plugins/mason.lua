@@ -15,12 +15,6 @@ return {
 
       -- Example: Lua
       lspconfig.lua_ls.setup({})
-
-      -- Example: Python
-      lspconfig.pyright.setup({})
-
-      -- Example: JavaScript/TypeScript
-      lspconfig.ts_ls.setup({})
     end
   }
 }
