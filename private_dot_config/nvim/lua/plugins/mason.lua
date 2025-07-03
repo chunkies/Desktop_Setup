@@ -1,20 +1,30 @@
 return {
   {
-    "neovim/nvim-lspconfig",
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
     dependencies = {
-      "mason-org/mason.nvim",
-      "mason-org/mason-lspconfig.nvim",
+      {
+        "mason-org/mason.nvim",
+        opts = {},
+        config = function()
+          require("mason").setup {
+
+          }
+        end,
+      },
+      "neovim/nvim-lspconfig",
     },
     config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls" }, -- pick your servers
+      local lspconfig = require("mason-lspconfig")
+
+      lspconfig.setup({
+        ensure_installed = {
+          "ts_ls",
+          "lua_ls",
+          "omnisharp"
+        },
+        automatic_installation = true,
       })
-
-      local lspconfig = require("lspconfig")
-
-      -- Example: Lua
-      lspconfig.lua_ls.setup({})
     end
   }
 }

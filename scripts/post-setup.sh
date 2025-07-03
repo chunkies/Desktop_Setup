@@ -15,6 +15,8 @@ apt_packages=(
   unzip
   build-essential
   tmux
+  dotnet-host
+  dotnet-sdk-9.0
 )
 
 snap_packages=(
@@ -25,6 +27,11 @@ snap_packages=(
 
 echo ">>> Updating package index..."
 sudo apt update
+
+echo ">>> Adding microsoft feed"
+wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
 
 echo ">>> Installing NeoVim..."
 cd ~/Downloads
