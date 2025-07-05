@@ -1,4 +1,4 @@
-Used to setup a new Desktop
+Used to setup my desktop environment
 
 Linux:
 
