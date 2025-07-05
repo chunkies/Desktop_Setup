@@ -17,22 +17,19 @@ apt_packages=(
   tmux
   dotnet-host
   dotnet-sdk-9.0
+  aspnetcore-runtime-9.0
 )
 
-snap_packages=(
-  spotify
-  discord
-  chezmoi --classic
-)
 
 
 echo ">>> Updating package index..."
-sudo apt update
+sudo apt-get update
 
 echo ">>> Adding microsoft feed"
-wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+wget https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
+
 
 echo ">>> Installing NeoVim..."
 cd ~/Downloads
@@ -43,17 +40,7 @@ sudo rm nvim-linux-x86_64.tar.gz
 
 echo ">>> Installing required APT packages..."
 for package in "${apt_packages[@]}"; do 
-    sudo apt install -y $package
-done
-
-echo ">>> Installing snap packages"
-for pkg in "${snap_packages[@]}"; do
-  if ! snap list | grep -q "^$pkg "; then
-    echo ">>> Installing $pkg via snap..."
-    sudo snap install "$pkg" --classic --yes
-  else
-    echo "✔ $pkg is already installed via snap"
-  fi
+    sudo apt-get install $package
 done
 
 # --- Kitty config ---

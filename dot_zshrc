@@ -111,3 +111,6 @@ alias l="lazygit"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 eval "$(ssh-agent -s)" >/dev/null 2>&1
+
+export DOTNET_ROOT=/usr/share/dotnet
+
