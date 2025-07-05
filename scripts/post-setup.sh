@@ -22,6 +22,7 @@ apt_packages=(
 snap_packages=(
   spotify
   discord
+  chezmoi --classic
 )
 
 
