@@ -91,6 +91,13 @@ PROFILE_ID=$(gsettings get org.gnome.Terminal.ProfilesList list | grep -o "'[^']
 gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/" use-system-font false
 gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/" font 'FiraCode Nerd Font Mono 12'
 
+
+echo ">>> Applying Chezmoi"
+Chezmoi Apply
+
+echo ">>> Creating Repo Directory"
+mkdir ~/Desktop/Repos
+
 # --- Final Message ---
 echo "✔ All done!"
 
