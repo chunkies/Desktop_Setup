@@ -16,3 +16,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank({ timeout = 100 })
   end,
 })
+
+
+-- Move current line up and down
+vim.api.nvim_set_keymap('n', '<Up>', ':m .-2<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Down>', ':m .+1<CR>==', { noremap = true, silent = true })
+
+-- Move selected lines up and down
+vim.api.nvim_set_keymap('v', '<Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+
+-- Move current line up and down
+vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
+
+-- Move selected lines up and down
+vim.api.nvim_set_keymap('v', '<A-j>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+
