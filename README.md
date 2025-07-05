@@ -10,5 +10,6 @@ chezmoi init https://github.com/chunkies/Desktop_Setup.git
 chezmoi apply
 
 cd "$(chezmoi source-path)"/scripts
+chmod +x pre-setup.sh
 ./pre-setup.sh
 ```
