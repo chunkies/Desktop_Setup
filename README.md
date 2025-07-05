@@ -8,4 +8,7 @@ snap install chezmoi --classic
 
 chezmoi init https://github.com/chunkies/Desktop_Setup.git
 chezmoi apply
+
+cd "$(chezmoi source-path)"/scripts
+./pre-setup.sh
 ```
