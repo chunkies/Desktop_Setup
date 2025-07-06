@@ -22,3 +22,7 @@ vim.opt.updatetime = 300
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
+
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
