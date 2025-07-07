@@ -4,8 +4,6 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
-
-
 -- Move between windows using Ctrl + Arrow Keys
 vim.keymap.set("n", "<C-Left>", "<C-w>h", opts)
 vim.keymap.set("n", "<C-Right>", "<C-w>l", opts)
