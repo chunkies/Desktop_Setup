@@ -18,9 +18,11 @@ apt_packages=(
   dotnet-host
   dotnet-sdk-9.0
   aspnetcore-runtime-9.0
+
 )
 
-
+echo ">>> Installing node"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 
 echo ">>> Updating package index..."
 sudo apt-get update
