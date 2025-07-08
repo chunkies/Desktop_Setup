@@ -2,6 +2,7 @@
 set -e
 
 apt_packages=(
+  steam
   fzf
   ripgrep
   fd-find
@@ -18,7 +19,6 @@ apt_packages=(
   dotnet-host
   dotnet-sdk-9.0
   aspnetcore-runtime-9.0
-
 )
 
 echo ">>> Installing node"
