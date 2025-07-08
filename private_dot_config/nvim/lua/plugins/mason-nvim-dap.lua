@@ -13,10 +13,7 @@ return {
       local dap = require("dap")
       local dapui = require("dapui")
 
-
-      --js debugger
-
-
+      dap.set_log_level('DEBUG')
 
       -- c# debug adapter
       dap.adapters.coreclr = {
@@ -50,7 +47,6 @@ return {
         }
       }
 
-
       dap.configurations.typescript = {
         {
           type = "pwa-node",
@@ -70,10 +66,6 @@ return {
           cwd = "${workspaceFolder}",
         }
       }
-
-
-
-
 
       dapui.setup()
 
