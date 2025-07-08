@@ -25,10 +25,10 @@ return {
       dap.configurations.cs = {
         {
           type = "coreclr",
-          name = "Launch - NetCoreDbg",
+          name = "Launch - netcoredbg",
           request = "launch",
           program = function()
-            return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+            return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
           end,
         },
       }
@@ -65,6 +65,24 @@ return {
           processId = require 'dap.utils'.pick_process,
           cwd = "${workspaceFolder}",
         }
+      }
+
+      -- go debugger
+      dap.adapters.go = {
+        type = 'executable',
+        command = vim.fn.stdpath("data") .. '/mason/packages/delve/dlv',
+        args = { 'dap' },
+      }
+
+      dap.configurations.go = {
+        {
+          type = 'go',
+          name = 'Debug',
+          request = 'launch',
+          showLog = false,
+          program = "${file}",
+          dlvToolPath = vim.fn.exepath('dlv') -- Adjust to where delve is installed
+        },
       }
 
       dapui.setup()
