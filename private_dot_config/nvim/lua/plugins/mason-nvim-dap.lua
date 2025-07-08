@@ -68,9 +68,11 @@ return {
       }
 
       -- go debugger
+      local dlv_path = vim.fn.stdpath("data") .. '/mason/packages/delve/dlv'
+
       dap.adapters.go = {
         type = 'executable',
-        command = vim.fn.stdpath("data") .. '/mason/packages/delve/dlv',
+        command = dlv_path,
         args = { 'dap' },
       }
 
@@ -80,8 +82,8 @@ return {
           name = 'Debug',
           request = 'launch',
           showLog = false,
-          program = "${file}",
-          dlvToolPath = vim.fn.exepath('dlv') -- Adjust to where delve is installed
+          program = "${workspaceFolder}",
+          dlvToolPath = dlv_path,
         },
       }
 
