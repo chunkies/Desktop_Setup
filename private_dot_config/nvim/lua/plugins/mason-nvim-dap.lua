@@ -8,10 +8,16 @@ return {
     dependencies = {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio", -- Required for nvim-dap-ui
+      "leoluz/nvim-dap-go",    -- used for go dap
     },
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
+      local dapgo = require("dap-go")
+
+      dapgo.setup()
+      dapui.setup()
+
 
       dap.set_log_level('DEBUG')
 
@@ -67,28 +73,6 @@ return {
         }
       }
 
-      -- go debugger
-      local dlv_path = vim.fn.stdpath("data") .. '/mason/packages/delve/dlv'
-
-      dap.adapters.go = {
-        type = 'executable',
-        command = dlv_path,
-        args = { 'dap' },
-      }
-
-      dap.configurations.go = {
-        {
-          type = 'go',
-          name = 'Debug',
-          request = 'launch',
-          showLog = false,
-          program = "${workspaceFolder}",
-          dlvToolPath = dlv_path,
-        },
-      }
-
-      dapui.setup()
-
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
@@ -114,6 +98,8 @@ return {
     end,
   },
   {
+
+    -- used for getting mason to communicate with nvim dap
     "jay-babu/mason-nvim-dap.nvim",
     dependencies = {
       "williamboman/mason.nvim",
