@@ -28,10 +28,6 @@ return {
       }
 
       telescope.load_extension('project')
-
-      -- Keymaps
-      vim.keymap.set("n", "<C-p>", ":Telescope project<CR>", { noremap = true, silent = true })
-      vim.keymap.set("n", "<space><space>", "<cmd>Telescope find_files<cr>", { desc = "Find files (Telescope)" })
     end,
   },
 }

@@ -3,38 +3,18 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
+    "mason-org/mason.nvim",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim",                   opts = {} },
   },
   config = function()
-    -- import lspconfig plugin
     local lspconfig = require("lspconfig")
-
-    -- import mason_lspconfig plugin
     local mason_lspconfig = require("mason-lspconfig")
-
-    -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-    local keymap = vim.keymap -- for conciseness
 
-    -- Define global on_attach function
     local function on_attach(client, bufnr)
       local opts = { buffer = bufnr, silent = true }
-
-      -- Set up LSP keymaps
-      keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
-      keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-      keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-      keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-      keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-      keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-      keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-      keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
-      keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-      keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-      keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-      keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
       -- Enable completion triggered by <c-x><c-o>
       vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -65,21 +45,6 @@ return {
           lspconfig[server_name].setup({
             capabilities = capabilities,
             on_attach = on_attach, -- <--- Add on_attach here!
-          })
-        end,
-        ["svelte"] = function()
-          lspconfig["svelte"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            on_attach = function(client, bufnr)
-              vim.api.nvim_create_autocmd("BufWritePost", {
-                pattern = { "*.js", "*.ts" },
-                callback = function(ctx)
-                  client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-                end,
-              })
-              on_attach(client, bufnr) -- call the global on_attach to set keymaps
-            end,
           })
         end,
         ["graphql"] = function()
