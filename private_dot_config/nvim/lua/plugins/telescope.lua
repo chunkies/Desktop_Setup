@@ -21,7 +21,7 @@ return {
             search_by = "title",
             sync_with_nvim_tree = true,
             on_project_selected = function(prompt_bufnr)
-              project_actions.change_working_directory(prompt_bufnr, false)
+              project_actions.change_working_directory(prompt_bufnr, true)
             end,
           },
         },
