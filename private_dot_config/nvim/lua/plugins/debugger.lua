@@ -12,7 +12,27 @@ return {
       local dap = require("dap")
 
       dapui.setup()
+
+      --go setup
       dapgo.setup()
+
+      --dotnet setup
+      dap.adapters.coreclr = {
+        type = 'executable',
+        command = vim.fn.stdpath('data') .. '/mason/packages/netcoredbg/netcoredbg',
+        args = { '--interpreter=vscode' }
+      }
+
+      dap.configurations.cs = {
+        {
+          type = "coreclr",
+          name = "launch - netcoredbg",
+          request = "launch",
+          program = function()
+            return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+          end,
+        },
+      }
 
       dap.listeners.before.attach.dapui_config = function()
         dapui.open()
@@ -38,7 +58,7 @@ return {
     dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
     config = function()
       require("mason-nvim-dap").setup({
-        ensure_installed = { "python", "delve" }
+        ensure_installed = { "python", "delve", "netcoredbg" }
       })
     end
   }
