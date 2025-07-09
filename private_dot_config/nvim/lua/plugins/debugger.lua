@@ -29,39 +29,14 @@ return {
           name = "launch - netcoredbg",
           request = "launch",
           program = function()
-            --1. Build the project
-            print("Building the project")
-            os.execute("dotnet build")
-
-
-            --2. Find the Framework
-            local framework = nil
-            for line in io.popen('grep -m1 "<TargetFramework" *.csproj'):lines() do
-              framework = line:match("<TargetFramework>(.*)</TargetFramework>")
-            end
-
-            if not framework then
-              error("Could not determine TargetFramework. Please check your .csproj.")
-            end
-
-
-            -- 3. Find the DLL name
-            local dllName = nil
-            for file in io.popen('ls *.csproj'):lines() do
-              dllName = file:gsub("%.csproj$", ".dll")
-            end
-
-            if not dllName then
-              error("Could not determine DLL name from .csproj.")
-            end
-
-
-            -- 4. Build the full path
-            local cwd = vim.fn.getcwd()
-            local path = cwd .. "/bin/Debug/" .. framework .. "/" .. dllName
-
-            print("Launching: " .. path)
-            return path
+            local build_info = require('dotnet_dap').get_dotnet_build_info()
+            print("Running dotnet build...")
+            os.execute("dotnet build " .. build_info.csproj)
+            print("Using framework: " .. build_info.framework)
+            print("Assembly name: " .. build_info.assembly)
+            print("Output path: " .. build_info.outputPath)
+            print("Executable: " .. build_info.exePath)
+            return build_info.exePath
           end,
         },
       }
