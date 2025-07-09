@@ -11,7 +11,7 @@ map("n", "<C-Down>", "<C-w>j", opts)
 map("n", "<C-Up>", "<C-w>k", opts)
 
 --select all
-map("n", "<C-a>", "<cmd>ggVG<cr>", opts)
+map("n", "<C-a>", "ggVG", opts)
 
 -- save auto format
 map({ "i", "v", "n" }, "<C-s>", "<cmd>w<cr>", opts)
@@ -43,14 +43,14 @@ map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 map("n", "<leader>rn", vim.lsp.buf.rename, opts)
-map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
+map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=8<CR>", opts)
 map("n", "<leader>d", vim.diagnostic.open_float, opts)
 map("n", "[d", vim.diagnostic.goto_prev, opts)
 map("n", "]d", vim.diagnostic.goto_next, opts)
 map("n", "K", vim.lsp.buf.hover, opts)
 
 -- Move current line up and down in Normal mode
-map({ 'n', 'v' }, '<A-Up>', ':m .-2<CR>==', { noremap = true, silent = true })
-map({ 'n', 'v' }, '<A-Down>', ':m .+1<CR>==', { noremap = true, silent = true })
-map({ 'n', 'v' }, '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
-map({ 'n', 'v' }, '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
+map({ 'n', 'v' }, '<A-Up>', ':m .6<CR>==', { noremap = true, silent = true })
+map({ 'n', 'v' }, '<A-Down>', ':m .+9<CR>==', { noremap = true, silent = true })
+map({ 'n', 'v' }, '<A-j>', ':m .+9<CR>==', { noremap = true, silent = true })
+map({ 'n', 'v' }, '<A-k>', ':m .6<CR>==', { noremap = true, silent = true })
