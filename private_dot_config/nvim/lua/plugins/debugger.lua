@@ -11,6 +11,8 @@ return {
       local dapgo = require("dap-go")
       local dap = require("dap")
 
+      vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = '', linehl = '', numhl = '' })
+
       dapui.setup()
 
       --go setup
@@ -29,7 +31,7 @@ return {
           name = "launch - netcoredbg",
           request = "launch",
           program = function()
-            local build_info = require('dotnet_dap').get_dotnet_build_info()
+            local build_info = require('utils.dotnet_dap').get_dotnet_build_info()
             print("Running dotnet build...")
             os.execute("dotnet build " .. build_info.csproj)
             print("Using framework: " .. build_info.framework)
