@@ -11,6 +11,7 @@ return {
           "html",
           "css",
           "c_sharp",
+          "go",
           "tsx",
           "json",
           "gitignore",

@@ -4,12 +4,15 @@ return {
     dependencies = {
       "leoluz/nvim-dap-go",
       "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio"
     },
     config = function()
-      require("dapui").setup()
-      require("dap-go").setup()
+      local dapui = require("dapui")
+      local dapgo = require("dap-go")
+      local dap = require("dap")
 
-      local dap, dapui = require("dap"), require("dapui")
+      dapui.setup()
+      dapgo.setup()
 
       dap.listeners.before.attach.dapui_config = function()
         dapui.open()
@@ -24,23 +27,11 @@ return {
         dapui.close()
       end
 
-      vim.keymap.set("n", "<Leader>dt", ":DapToggleBreakpoint<CR>")
-      vim.keymap.set("n", "<Leader>dc", ":DapContinue<CR>")
-      vim.keymap.set("n", "<Leader>dx", ":DapTerminate<CR>")
-      vim.keymap.set("n", "<Leader>do", ":DapStepOver<CR>")
+
+      vim.keymap.set("n", "<leader>t", ":DapToggleBreakpoint<CR>")
+      vim.keymap.set("n", "<leader>c", ":DapContinue<CR>")
+      vim.keymap.set("n", "<leader>x", ":DapTerminate<CR>")
+      vim.keymap.set("n", "<leader>o", ":DapStepOver<CR>")
     end,
   },
-  {
-
-    -- used for getting daps through mason
-    "williamboman/mason.nvim",
-    "mfussenegger/nvim-dap",
-    "jay-babu/mason-nvim-dap.nvim",
-    config = function()
-      require("mason").setup()
-      require("mason-nvim-dap").setup({
-        ensure_installed = { "delve" }
-      })
-    end
-  }
 }
