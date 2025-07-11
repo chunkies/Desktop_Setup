@@ -7,7 +7,6 @@ apt_packages=(
   ripgrep
   fd-find
   python3
-  nodejs
   cargo
   zsh
   git
@@ -19,10 +18,20 @@ apt_packages=(
   dotnet-host
   dotnet-sdk-9.0
   aspnetcore-runtime-9.0
+  golang-go
 )
 
 echo ">>> Installing node"
+# Download and install nvm:
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+nvm install 22
+node -v # Should print "v22.17.0".
+nvm current # Should print "v22.17.0".
+npm -v # Should print "10.9.2".
 
 echo ">>> Updating package index..."
 sudo apt-get update
