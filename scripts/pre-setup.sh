@@ -33,6 +33,10 @@ node -v # Should print "v22.17.0".
 nvm current # Should print "v22.17.0".
 npm -v # Should print "10.9.2".
 
+
+echo ">>> Installing typescript"
+npm install -g typescript
+
 echo ">>> Updating package index..."
 sudo apt-get update
 
