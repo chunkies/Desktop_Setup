@@ -41,10 +41,9 @@ map('n', '<A-Down>', ':m .+1<CR>==', opts)
 map('v', '<A-Up>', ":m '<-2<CR>gv=gv", opts)
 map('v', '<A-Down>', ":m '>+1<CR>gv=gv", opts)
 
---Auto format
-map('n', '<A-F>', function()
-  vim.lsp.buf.format({ async = false })
-end, opts)
+-- Jump back/forward in jumplist
+map("n", "<A-Left>", "<C-o>", opts)
+map("n", "<A-Right>", "<C-i>", opts)
 
 --LSP keymaps
 function M.lsp(bufnr)
@@ -62,10 +61,17 @@ function M.lsp(bufnr)
   map("n", "[d", vim.diagnostic.goto_prev, opts)
   map("n", "]d", vim.diagnostic.goto_next, opts)
   map("n", "K", vim.lsp.buf.hover, opts)
-
-  map('n', '<A-F>', function()
-    vim.lsp.buf.format({ async = false })
-  end, buffer_opts)
 end
+
+--Auto format
+map('n', '<A-F>', function()
+	vim.lsp.buf.format({ async = false })
+end, opts)
+
+
+-- F12 to go to definition
+map("n", "<F12>", function()
+	vim.lsp.buf.definition()
+end, buffer_opts)
 
 return M
