@@ -20,6 +20,9 @@ map("n", "<C-A-Left>", ":vertical resize -2<CR>", opts)
 -- save
 map({ "i", "v", "n" }, "<C-s>", "<cmd>w<cr>", opts)
 
+-- select all
+map({"v", "n" }, "<C-a>", "ggVG", opts)
+
 -- file explorer
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
