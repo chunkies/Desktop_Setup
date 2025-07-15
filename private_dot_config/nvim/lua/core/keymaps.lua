@@ -64,7 +64,7 @@ function M.lsp()
 end
 
 --rename
-map('n', '<leader>rn', function()
+map('n', '<leader>rr', function()
   vim.lsp.buf.rename()
 end, opts)
 
