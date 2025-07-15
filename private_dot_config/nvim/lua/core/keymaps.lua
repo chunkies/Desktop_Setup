@@ -11,10 +11,13 @@ map("n", "<C-Right>", "<C-w>l", opts)
 map("n", "<C-Down>", "<C-w>j", opts)
 map("n", "<C-Up>", "<C-w>k", opts)
 
---select all
-map("n", "<C-a>", "ggVG", opts)
+-- Resize splits with Ctrl + Alt + Arrow
+map("n", "<C-A-Up>", ":resize +2<CR>", opts)
+map("n", "<C-A-Down>", ":resize -2<CR>", opts)
+map("n", "<C-A-Right>", ":vertical resize +2<CR>", opts)
+map("n", "<C-A-Left>", ":vertical resize -2<CR>", opts)
 
--- save auto format
+-- save
 map({ "i", "v", "n" }, "<C-s>", "<cmd>w<cr>", opts)
 
 -- file explorer
@@ -46,16 +49,13 @@ map("n", "<A-Left>", "<C-o>", opts)
 map("n", "<A-Right>", "<C-i>", opts)
 
 --LSP keymaps
-function M.lsp(bufnr)
-  local buffer_opts = vim.tbl_extend("force", opts, { buffer = bufnr })
-
+function M.lsp()
   map("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
   map("n", "gD", vim.lsp.buf.declaration, opts)
   map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
   map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
   map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
   map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-  map("n", "<leader>rn", vim.lsp.buf.rename, opts)
   map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=8<CR>", opts)
   map("n", "<leader>d", vim.diagnostic.open_float, opts)
   map("n", "[d", vim.diagnostic.goto_prev, opts)
@@ -63,15 +63,19 @@ function M.lsp(bufnr)
   map("n", "K", vim.lsp.buf.hover, opts)
 end
 
---Auto format
-map('n', '<A-F>', function()
-	vim.lsp.buf.format({ async = false })
+--rename
+map('n', '<leader>rn', function()
+  vim.lsp.buf.rename()
 end, opts)
 
+--Auto format
+map('n', '<A-F>', function()
+  vim.lsp.buf.format({ async = false })
+end, opts)
 
 -- F12 to go to definition
 map("n", "<F12>", function()
-	vim.lsp.buf.definition()
-end, buffer_opts)
+  vim.lsp.buf.definition()
+end, opts)
 
 return M

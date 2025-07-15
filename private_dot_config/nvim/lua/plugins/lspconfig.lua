@@ -3,8 +3,8 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
-    "mason-org/mason.nvim",           -- fixed here
-    "mason-org/mason-lspconfig.nvim", -- added missing
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim",                   opts = {} },
   },
@@ -16,7 +16,6 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     local function on_attach(client, bufnr)
-      local opts = { buffer = bufnr, silent = true }
       vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
       local keymaps = require("core.keymaps")
       keymaps.lsp(bufnr)
