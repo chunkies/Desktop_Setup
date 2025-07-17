@@ -19,6 +19,7 @@ apt_packages=(
   dotnet-sdk-9.0
   aspnetcore-runtime-9.0
   golang-go
+  git-flow
 )
 
 echo ">>> Installing node"
