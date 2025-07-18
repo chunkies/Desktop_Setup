@@ -53,17 +53,12 @@ map("n", "<A-Right>", "<C-i>", opts)
 
 --LSP keymaps
 function M.lsp()
-  map("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
-  map("n", "gD", vim.lsp.buf.declaration, opts)
-  map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-  map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-  map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-  map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-  map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=8<CR>", opts)
-  map("n", "<leader>d", vim.diagnostic.open_float, opts)
-  map("n", "[d", vim.diagnostic.goto_prev, opts)
-  map("n", "]d", vim.diagnostic.goto_next, opts)
-  map("n", "K", vim.lsp.buf.hover, opts)
+  -- Diagnostics
+  map("n", "[d", vim.diagnostic.goto_prev, opts, { desc = "Previous diagnostic" })
+  map("n", "]d", vim.diagnostic.goto_next, opts, { desc = "Next diagnostic" })
+
+  -- Hover docs and signature
+  map("n", "K", vim.lsp.buf.hover, opts, { desc = "Show hover/type info" })
 end
 
 --rename
@@ -76,11 +71,20 @@ map('n', '<A-F>', function()
   vim.lsp.buf.format({ async = false })
 end, opts)
 
--- F12 to go to definition
-map("n", "<F12>", function()
+-- go to definition
+map("n", "gd", function()
   vim.lsp.buf.definition()
 end, opts)
 
+-- go to definition
+map("n", "gi", function()
+  vim.lsp.buf.implementation()
+end, opts)
+
+-- go to definition
+map("n", "gt", function()
+  vim.lsp.buf.definition()
+end, opts)
 
 M.treesitter_keymaps = {
   inner_around = {
