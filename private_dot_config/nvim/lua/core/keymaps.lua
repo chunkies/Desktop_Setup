@@ -21,7 +21,7 @@ map("n", "<C-A-Left>", ":vertical resize -2<CR>", opts)
 map({ "i", "v", "n" }, "<C-s>", "<cmd>w<cr>", opts)
 
 -- select all
-map({"v", "n" }, "<C-a>", "ggVG", opts)
+map({ "v", "n" }, "<C-a>", "ggVG", opts)
 
 -- file explorer
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
@@ -80,5 +80,29 @@ end, opts)
 map("n", "<F12>", function()
   vim.lsp.buf.definition()
 end, opts)
+
+
+M.treesitter_keymaps = {
+  inner_around = {
+    ["af"] = "@function.outer",
+    ["if"] = "@function.inner",
+
+    ["ac"] = "@class.outer",
+    ["ic"] = "@class.inner",
+
+    ["aa"] = "@parameter.outer",
+    ["ia"] = "@parameter.inner",
+  },
+  goto_next_start = {
+    [']f'] = '@function.outer',
+    [']c'] = '@class.outer',
+    [']a'] = '@parameter.outer',
+  },
+  goto_previous_start = {
+    ['[f'] = '@function.outer',
+    ['[c'] = '@class.outer',
+    ['[a'] = '@parameter.outer',
+  },
+}
 
 return M

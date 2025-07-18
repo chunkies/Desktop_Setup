@@ -1,10 +1,16 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("nvim-treesitter.configs").setup({
+      local nvim_treesitter_config = require("nvim-treesitter.configs")
+      local keymaps = require("core.keymaps")
+
+      nvim_treesitter_config.setup({
         ensure_installed = {
           "typescript",
           "javascript",
@@ -33,7 +39,21 @@ return {
         },
         indent = {
           enable = true,
-        }
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = keymaps.treesitter_keymaps.inner_around,
+
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = keymaps.treesitter_keymaps.goto_next_start,
+            goto_previous_start = keymaps.treesitter_keymaps.goto_previous_start
+          },
+        },
       })
     end,
   }
