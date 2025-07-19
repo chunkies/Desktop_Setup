@@ -20,6 +20,8 @@ apt_packages=(
   aspnetcore-runtime-9.0
   golang-go
   git-flow
+  i3
+  picom
 )
 
 echo ">>> Installing node"

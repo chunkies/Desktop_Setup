@@ -200,7 +200,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # Lockscreen
-#
 # set desktop background with custom effect
 exec --no-startup-id betterlockscreen -w dim
 bindsym $mod+shift+x exec betterlockscreen -l dim
