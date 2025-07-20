@@ -15,6 +15,19 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+    mason_lspconfig.setup {
+      automatic_enable = true,
+      ensure_installed = {
+        "lua_ls",
+        "rust_analyzer",
+        "ts_ls",
+        "omnisharp",
+        "gopls",
+        "bashls",
+      },
+    }
+
+
     local function on_attach(client, bufnr)
       vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
       local keymaps = require("core.keymaps")

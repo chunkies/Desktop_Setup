@@ -1,44 +1,31 @@
 return {
-  -- Formatters & Linters (null-ls)
   {
-    "nvimtools/none-ls.nvim",
-    dependencies = { "williamboman/mason.nvim", "jay-babu/mason-null-ls.nvim" },
+    "stevearc/conform.nvim",
     config = function()
-      local null_ls = require("null-ls")
-      local formatting = null_ls.builtins.formatting
-      local diagnostics = null_ls.builtins.diagnostics
+      local conform = require("conform")
+
+      conform.setup({
+        formatters_by_ft = {
+
+          -- C#
+          cs = { "csharpier" },  
+
+          -- Bash (POSIX shell & Bash)
+          sh = { "shfmt" },
+          bash = { "beautysh" },
 
 
-      require("mason-null-ls").setup({
-        ensure_installed = {
-          "prettier",  -- JS/TS/React
-          "eslint_d",  -- JS/TS/React
-          "csharpier", -- C#
-          "sql-formatter"
-        },
-        automatic_installation = true,
-      })
-
-      null_ls.setup({
-        sources = {
-          -- JS/TS/React
-          formatting.prettier.with({
-            filetypes = {
-              "javascript", "javascriptreact",
-              "typescript", "typescriptreact",
-              "css", "html", "json", "yaml", "markdown"
-            },
-          }),
-          diagnostics.eslint_d,
-          formatting.csharpier,
-
-          -- SQL
-          formatting.sql_formatter,
-
-          -- Shell scripts
-          formatting.beautysh,
+          -- Lua
+          lua = { "stylua" },
+          -- Conform will run multiple formatters sequentially
+          python = { "isort", "black" },
+          -- You can customize some of the format options for the filetype (:help conform.format)
+          rust = { "rustfmt", lsp_format = "fallback" },
+          -- Conform will run the first available formatter
+          javascript = { "prettierd", "prettier", stop_after_first = true },
         },
       })
-    end,
+    end
+
   },
 }

@@ -7,6 +7,7 @@ apt_packages=(
   ripgrep
   fd-find
   python3
+  python3-venv
   cargo
   zsh
   git

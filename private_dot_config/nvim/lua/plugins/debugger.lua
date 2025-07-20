@@ -4,12 +4,22 @@ return {
     dependencies = {
       "leoluz/nvim-dap-go",
       "rcarriga/nvim-dap-ui",
-      "nvim-neotest/nvim-nio"
+      "nvim-neotest/nvim-nio",
+      "jay-babu/mason-nvim-dap.nvim"
     },
     config = function()
       local dapui = require("dapui")
       local dapgo = require("dap-go")
       local dap = require("dap")
+      local mason_nvim_dap = require("mason-nvim-dap")
+
+      mason_nvim_dap.setup({
+        ensure_installed = {
+          "python",
+          "delve",
+          "netcoredbg"
+        }
+      })
 
       vim.fn.sign_define('DapBreakpoint', { text = '🔴', texthl = '', linehl = '', numhl = '' })
 
