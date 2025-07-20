@@ -24,6 +24,22 @@ apt_packages=(
   picom
 )
 
+read -e -p "Do you want to install Non Dev tools aswell? y/n" installDevTools
+
+
+if [ "$installDevTools" == "y" ]; then
+
+  echo ">>> Installing Spotify"
+  curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+  sudo apt-get update && sudo apt-get install spotify-client
+
+  echo ">>> Installing Spicefy"
+  curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
+fi
+
+
 echo ">>> Installing node"
 # Download and install nvm:
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
