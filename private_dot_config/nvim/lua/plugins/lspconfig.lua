@@ -68,6 +68,12 @@ return {
             on_attach = on_attach,
           })
         end,
+        ["bashls"] = function()
+          lspconfig.bashls.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+          })
+        end,
       },
     })
   end,
