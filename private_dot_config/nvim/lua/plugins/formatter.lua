@@ -14,8 +14,6 @@ return {
           "prettier",  -- JS/TS/React
           "eslint_d",  -- JS/TS/React
           "csharpier", -- C#
-          "black",
-          "ruff",
           "sql-formatter"
         },
         automatic_installation = true,
@@ -34,12 +32,11 @@ return {
           diagnostics.eslint_d,
           formatting.csharpier,
 
-          -- Python
-          formatting.black,
-          diagnostics.ruff,
-
           -- SQL
           formatting.sql_formatter,
+
+          -- Shell scripts
+          formatting.beautysh,
         },
       })
     end,
