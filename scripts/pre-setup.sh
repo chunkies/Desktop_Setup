@@ -23,18 +23,16 @@ apt_packages=(
   snapd
 )
 
-read -e -p "Do you want to install Non Dev tools? y/n" installDevTools
+snap_packages=(
+)
 
-if [ "$installDevTools" == "y" ]; then
+read -e -p "Do you want to install Non Dev tools? y/n" installNonDevTools
 
-  echo ">>> Installing Spotify"
-  curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-  curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
+if [ "$installNonDevTools" == "y" ]; then
 
   apt_packages+=(
     steam
   )
-
 fi
 
 read -e -p "Do you want to Setup i3? y/n" setupi3
@@ -49,6 +47,19 @@ if [ "$setupi3" == "y" ]; then
     playerctl
   )
 
+fi
+
+echo ">>> Stopping PackageKit to avoid lock conflicts..."
+sudo systemctl stop packagekit
+
+echo ">>> Updating package index..."
+sudo apt-get update
+
+if [ "$installNonDevTools" ]; then
+  echo ">>> Installing Spotify..."
+  curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+  echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+  sudo apt-get update && sudo apt-get install spotify-client
 fi
 
 echo ">>> Installing node"
@@ -82,8 +93,11 @@ sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 sudo rm nvim-linux-x86_64.tar.gz
 
 echo ">>> Installing required APT packages..."
-for package in "${apt_packages[@]}"; do
-  sudo apt-get install $package
+sudo apt-get install -y "${apt_packages[@]}"
+
+echo ">>> Installing snap packages..."
+for package in "${snap_packages[@]}"; do
+  sudo snap install $package
 done
 
 # --- Kitty config ---
@@ -121,8 +135,17 @@ PROFILE_ID=$(gsettings get org.gnome.Terminal.ProfilesList list | grep -o "'[^']
 gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/" use-system-font false
 gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$PROFILE_ID/" font 'FiraCode Nerd Font Mono 12'
 
-echo ">>> Creating Repo Directory"
-mkdir ~/Desktop/Repos
+DIR="$HOME/Desktop/Repos"
+if [ ! -d "$DIR" ]; then
+  echo ">>> Creating directory $DIR"
+  mkdir -p "$DIR"
+fi
+
+echo ">>> Restarting PackageKit..."
+sudo systemctl start packagekit
+
+echo ">>> applying chezmoi"
+chezmoi apply --force
 
 # --- Final Message ---
 echo "✔ All done!"
