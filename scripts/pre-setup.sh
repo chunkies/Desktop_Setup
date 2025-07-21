@@ -27,27 +27,31 @@ snap_packages=(
 )
 
 read -e -p "Do you want to install Non Dev tools? y/n" installNonDevTools
-
 if [ "$installNonDevTools" == "y" ]; then
-
   apt_packages+=(
     steam
   )
 fi
 
 read -e -p "Do you want to Setup i3? y/n" setupi3
-
 if [ "$setupi3" == "y" ]; then
+  echo ">>> Installing kitty"
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   apt_packages+=(
     picom
     i3
+    i3status
+    rofi
+    dmenu
     polybar
     alsa-utils
     acpi
     playerctl
   )
-
 fi
+
+echo ">>> Upating..."
+sudo apt update
 
 echo ">>> Stopping PackageKit to avoid lock conflicts..."
 sudo systemctl stop packagekit

@@ -178,16 +178,11 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-## Launch Polybar
+# Launch Polybar
 exec --no-startup-id ~/.config/polybar/launch.sh
 
 # Setup Picom 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
-
-
-# Gaps / borders
-gaps outer 10px
-gaps inner 5px
 
 default_border pixel 3
 
