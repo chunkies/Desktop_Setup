@@ -46,6 +46,7 @@ if [ "$setupi3" == "y" ]; then
     polybar
     alsa-utils
     acpi
+    playerctl
   )
 
 fi
