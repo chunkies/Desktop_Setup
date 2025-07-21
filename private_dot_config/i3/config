@@ -179,7 +179,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 ## Launch Polybar
-exec bash ~/.config/polybar/launch.sh --panels
+exec --no-startup-id ~/.config/polybar/launch.sh
 
 # Setup Picom 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
