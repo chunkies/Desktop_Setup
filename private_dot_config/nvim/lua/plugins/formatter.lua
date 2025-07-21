@@ -1,31 +1,42 @@
 return {
-  {
-    "stevearc/conform.nvim",
-    config = function()
-      local conform = require("conform")
+	{
+		"stevearc/conform.nvim",
+		dependencies = { "mason-org/mason.nvim" },
+		config = function()
+			require("conform").setup({
+				formatters_by_ft = {
+					lua = { "stylua" },
+					python = { "isort", "black" },
+					rust = { "rustfmt" },
+					javascript = { "prettierd", "prettier", stop_after_first = true },
+					typescript = { "prettierd", "prettier", stop_after_first = true },
+					javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+					typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+					cs = nil,
+					sh = { "shfmt" },
+					bash = { "beautysh" },
+				},
+				format_on_save = {
+					timeout_ms = 500,
+					lsp_fallback = "fallback",
+				},
+			})
+		end,
+	},
 
-      conform.setup({
-        formatters_by_ft = {
-
-          -- C#
-          cs = { "csharpier" },  
-
-          -- Bash (POSIX shell & Bash)
-          sh = { "shfmt" },
-          bash = { "beautysh" },
-
-
-          -- Lua
-          lua = { "stylua" },
-          -- Conform will run multiple formatters sequentially
-          python = { "isort", "black" },
-          -- You can customize some of the format options for the filetype (:help conform.format)
-          rust = { "rustfmt", lsp_format = "fallback" },
-          -- Conform will run the first available formatter
-          javascript = { "prettierd", "prettier", stop_after_first = true },
-        },
-      })
-    end
-
-  },
+	-- Mason‑Conform — should load *after* both Mason and Conform
+	{
+		"zapling/mason-conform.nvim",
+		dependencies = {
+			"mason-org/mason.nvim",
+			"stevearc/conform.nvim",
+		},
+		opts = {},
+		config = function()
+			require("mason-conform").setup({
+				automatic_installation = true,
+				quiet_mode = false,
+			})
+		end,
+	},
 }

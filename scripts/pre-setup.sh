@@ -32,8 +32,7 @@ if [ "$installDevTools" == "y" ]; then
 
   echo ">>> Installing Spotify"
   curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-
-curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/spicetify/cli/main/install.sh | sh
   fi
 
 

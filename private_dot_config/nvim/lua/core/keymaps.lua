@@ -68,7 +68,7 @@ end, opts)
 
 --Auto format
 map('n', '<A-F>', function()
-  vim.lsp.buf.format({ async = false })
+  require("conform").format({ timeout_ms = 500, lsp_format = "fallback" })
 end, opts)
 
 -- go to definition
