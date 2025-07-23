@@ -31,18 +31,6 @@ return {
 			vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 			local keymaps = require("core.keymaps")
 			keymaps.lsp(bufnr)
-
-			if client.supports_method("textDocument/codeAction") then
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					callback = function()
-						vim.lsp.buf.code_action({
-							context = { only = { "source.organizeImports", "source.addMissingImports" } },
-							apply = true,
-						})
-					end,
-				})
-			end
 		end
 
 		local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -78,16 +66,6 @@ return {
 						capabilities = capabilities,
 						on_attach = on_attach,
 						handlers = {},
-						settings = {
-							FormattingOptions = { EnableEditorConfigSupport = true },
-							MsBuild = {},
-							RenameOptions = {},
-							RoslynExtensionsOptions = {},
-							Sdk = { IncludePrereleases = true },
-							omnisharp = {
-								enableImportCompletion = true,
-							},
-						},
 					})
 				end,
 				["gopls"] = function()
