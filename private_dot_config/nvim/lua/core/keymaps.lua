@@ -28,24 +28,24 @@ map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
 -- Telescope
 map("n", "<leader>fp", ":Telescope project<CR>", opts)
-map('n', '<leader>ff', "<cmd>Telescope find_files<cr>", { desc = 'Telescope find files' })
-map('n', '<leader>fg', "<cmd>Telescope live_grep<cr>", { desc = 'Telescope live grep' })
-map('n', '<leader>fb', "<cmd>Telescope buffers<cr>", { desc = 'Telescope buffers' })
-map('n', '<leader>fh', "<cmd>Telescope help_tags<cr>", { desc = 'Telescope help tags' })
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Telescope find files" })
+map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Telescope live grep" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Telescope buffers" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Telescope help tags" })
 
 -- Debugger
-map("n", "<leader>b", ":DapToggleBreakpoint<CR>", opts)
-map("n", "<leader>c", ":DapContinue<CR>", opts)
-map("n", "<leader>x", ":DapTerminate<CR>", opts)
-map("n", "<leader>o", ":DapStepOver<CR>", opts)
+map("n", "<leader>db", ":DapToggleBreakpoint<CR>", opts)
+map("n", "<leader>dc", ":DapContinue<CR>", opts)
+map("n", "<leader>dx", ":DapTerminate<CR>", opts)
+map("n", "<leader>do", ":DapStepOver<CR>", opts)
 
 -- Normal
-map('n', '<A-Up>', ':m .-2<CR>==', opts)
-map('n', '<A-Down>', ':m .+1<CR>==', opts)
+map("n", "<A-Up>", ":m .-2<CR>==", opts)
+map("n", "<A-Down>", ":m .+1<CR>==", opts)
 
 -- Visual
-map('v', '<A-Up>', ":m '<-2<CR>gv=gv", opts)
-map('v', '<A-Down>', ":m '>+1<CR>gv=gv", opts)
+map("v", "<A-Up>", ":m '<-2<CR>gv=gv", opts)
+map("v", "<A-Down>", ":m '>+1<CR>gv=gv", opts)
 
 -- Jump back/forward in jumplist
 map("n", "<A-Left>", "<C-o>", opts)
@@ -53,60 +53,65 @@ map("n", "<A-Right>", "<C-i>", opts)
 
 --LSP keymaps
 function M.lsp()
-  -- Diagnostics
-  map("n", "[d", vim.diagnostic.goto_prev, opts, { desc = "Previous diagnostic" })
-  map("n", "]d", vim.diagnostic.goto_next, opts, { desc = "Next diagnostic" })
+	-- Diagnostics
+	map("n", "[d", vim.diagnostic.goto_prev, opts, { desc = "Previous diagnostic" })
+	map("n", "]d", vim.diagnostic.goto_next, opts, { desc = "Next diagnostic" })
 
-  -- Hover docs and signature
-  map("n", "K", vim.lsp.buf.hover, opts, { desc = "Show hover/type info" })
+	-- Hover docs and signature
+	map("n", "K", vim.lsp.buf.hover, opts, { desc = "Show hover/type info" })
 end
 
+-- code acitons
+map({ "n", "v" }, "<leader>ca", function()
+	vim.lsp.buf.code_action()
+end, opts)
+
 --rename
-map('n', '<leader>rr', function()
-  vim.lsp.buf.rename()
+map("n", "<leader>rr", function()
+	vim.lsp.buf.rename()
 end, opts)
 
 --Auto format
-map('n', '<A-F>', function()
-  require("conform").format({ timeout_ms = 500, lsp_format = "fallback" })
+map("n", "<A-F>", function()
+	require("conform").format({ timeout_ms = 500, lsp_format = "fallback" })
 end, opts)
 
 -- go to definition
 map("n", "gd", function()
-  vim.lsp.buf.definition()
+	vim.lsp.buf.definition()
 end, opts)
 
 -- go to definition
 map("n", "gi", function()
-  vim.lsp.buf.implementation()
+	vim.lsp.buf.implementation()
 end, opts)
 
 -- go to definition
 map("n", "gt", function()
-  vim.lsp.buf.definition()
+	vim.lsp.buf.definition()
 end, opts)
 
 M.treesitter_keymaps = {
-  inner_around = {
-    ["af"] = "@function.outer",
-    ["if"] = "@function.inner",
+	inner_around = {
+		["af"] = "@function.outer",
+		["if"] = "@function.inner",
 
-    ["ac"] = "@class.outer",
-    ["ic"] = "@class.inner",
+		["ac"] = "@class.outer",
+		["ic"] = "@class.inner",
 
-    ["aa"] = "@parameter.outer",
-    ["ia"] = "@parameter.inner",
-  },
-  goto_next_start = {
-    [']f'] = '@function.outer',
-    [']c'] = '@class.outer',
-    [']a'] = '@parameter.outer',
-  },
-  goto_previous_start = {
-    ['[f'] = '@function.outer',
-    ['[c'] = '@class.outer',
-    ['[a'] = '@parameter.outer',
-  },
+		["aa"] = "@parameter.outer",
+		["ia"] = "@parameter.inner",
+	},
+	goto_next_start = {
+		["]f"] = "@function.outer",
+		["]c"] = "@class.outer",
+		["]a"] = "@parameter.outer",
+	},
+	goto_previous_start = {
+		["[f"] = "@function.outer",
+		["[c"] = "@class.outer",
+		["[a"] = "@parameter.outer",
+	},
 }
 
 return M
