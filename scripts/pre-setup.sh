@@ -154,5 +154,8 @@ chezmoi apply --force
 echo ">>> installing nvim remote"
 pip3 install neovim-remote
 
+echo ">>> Installing Rust..."
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 # --- Final Message ---
 echo "✔ All done!"
