@@ -151,5 +151,8 @@ sudo systemctl start packagekit
 echo ">>> applying chezmoi"
 chezmoi apply --force
 
+echo ">>> installing nvim remote"
+pip3 install neovim-remote
+
 # --- Final Message ---
 echo "✔ All done!"
