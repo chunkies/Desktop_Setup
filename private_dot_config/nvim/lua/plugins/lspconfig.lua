@@ -24,6 +24,7 @@ return {
 				"omnisharp",
 				"gopls",
 				"bashls",
+				"clangd",
 			},
 		})
 
@@ -83,6 +84,12 @@ return {
 				end,
 				["bashls"] = function()
 					lspconfig.bashls.setup({
+						capabilities = capabilities,
+						on_attach = on_attach,
+					})
+				end,
+				["clangd"] = function()
+					lspconfig.clangd.setup({
 						capabilities = capabilities,
 						on_attach = on_attach,
 					})
