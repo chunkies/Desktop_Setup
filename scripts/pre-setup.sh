@@ -23,6 +23,7 @@ apt_packages=(
   golang-go
   git-flow
   snapd
+  cmake
 )
 
 snap_packages=(
