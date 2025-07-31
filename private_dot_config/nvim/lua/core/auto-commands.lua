@@ -1,10 +1,19 @@
--- show float for lsp on hover
 vim.api.nvim_create_autocmd("CursorHold", {
 	callback = function()
 		vim.diagnostic.open_float(nil, { focusable = false })
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "CursorMoved", "BufLeave", "InsertEnter" }, {
+	callback = function()
+		for _, win in ipairs(vim.api.nvim_list_wins()) do
+			local config = vim.api.nvim_win_get_config(win)
+			if config.zindex and config.external then
+				vim.api.nvim_win_close(win, true)
+			end
+		end
+	end,
+})
 -- highlight text on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
