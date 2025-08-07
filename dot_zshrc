@@ -119,6 +119,9 @@ export PATH=$PATH:/home/tristan/.spicetify
 export PATH="$HOME/.local/bin:$PATH"
 export CPLUS_INCLUDE_PATH=/usr/include/c++/11:/usr/include/x86_64-linux-gnu/c++/11
 
+export VCPKG_ROOT="$HOME/vcpkg"
+export PATH=$VCPKG_ROOT:$PATH
+
 #for neovim remote
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
