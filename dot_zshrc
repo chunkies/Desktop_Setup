@@ -109,6 +109,9 @@ alias l="lazygit"
 eval "$(ssh-agent -s)" >/dev/null 2>&1
 
 #path
+export VCPKG_ROOT="$HOME/dev"
+export PATH=$VCPKG_ROOT:$PATH
+
 export DOTNET_ROOT=/usr/share/dotnet
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=$PATH:/usr/local/go/bin
